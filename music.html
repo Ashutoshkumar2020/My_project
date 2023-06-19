@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">LOTUS LANE</h2>
+            <h3 id="artist">The Loyalist</h3>
+            <div class="img_container">
+                <img src="img\pngwing.com.png" alt="">
+            </div>
+            <audio src="song\_lovely_-_billie_eilish_ft__Khalid__slowed___reverb___rain_.mp3" ></audio>
+            <!-- controls -->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="Play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        /*when we excess directly tag the use querySelector*/
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("Play");
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+        const songs = [
+        {
+            name : "_lovely_-_billie_eilish_ft__Khalid__slowed___reverb___rain_",
+            title: "Lovely",
+            artist: "Billie_eilish",
+        },
+        {
+            name:"song2",
+            title: 'my song',
+            artist: 'Ashish'
+        },
+        {
+            name:"Starboy",
+            title: "Starboy",
+            artist: "Ashutosh kumar",
+        },
+        {
+            name: "Unstoppable",
+            title:"Unstoppable",
+            artist: "Vivek_rocko",
+        }
+        ]
+
+        let isPlaying = false;
+// play functionality 
+        const playMusic =() =>{
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play","fa-pause");
+            img.classList.add("animes");
+        };
+// pause functionality 
+        const pauseMusic = () =>{
+            isPlaying = false;
+            music.pause();
+            play.classList.replace("fa-pause","fa-play");
+            img.classList.remove("animes");
+        };
+
+        play.addEventListener("click" , () =>{
+            // if(isPlaying)
+            // {
+            //     pauseMusic();
+            // }
+            // else{
+            //     playMusic();
+            // }
+            isPlaying  ? pauseMusic():playMusic();
+        });
+
+//   changing the music data
+        const loadSong =  (songs)  =>{
+            title.textContent=songs.title;  
+            artist.textContent=songs.artist;   
+            music.src  = 'song/'+songs.name+'.mp3';  
+            img.src = 'img/'+songs.name+'.jpg'; 
+            
+        }
+        
+        songIndex =0;
+        // loadSong(songs[1]);
+        
+        const nextSong = () =>{
+              loadSong(songs[songIndex]);
+              songIndex = (songIndex+1)%songs.length;
+              playMusic();
+        }
+
+        const prevSong = () =>{
+              loadSong(songs[songIndex]);
+              songIndex = (songIndex-1+songs.length)%songs.length;
+              playMusic();
+        }
+        next.addEventListener('click',nextSong);
+        prev.addEventListener('click',prevSong);
+    </script>
+</body>
+</html>
